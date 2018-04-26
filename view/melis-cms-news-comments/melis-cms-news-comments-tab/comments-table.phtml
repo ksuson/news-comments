@@ -1,0 +1,37 @@
+<?php
+    $id = '';
+    if (!empty($this->zoneconfig['conf']['id'])){
+        $id = $this->zoneconfig['conf']['id'];
+    }
+?>
+<div class="table-container">
+    <div id="<?= $id ?>" data-melisKey="<?= $this->melisKey; ?>" class="tab-content innerAll spacing-x2">
+        <?php
+        /** setTable prepares the TABLE element in HTML:
+         *  <table id="tableMelisNewsletter" class="table table-striped table-primary dt-responsive nowrap">
+         */
+        $this->melisGenericTable()->setTable(array(
+            'id' => $this->tableName,
+            'class' => 'table table-striped table-primary dt-responsive nowrap',
+            'cellspacing' => '0',
+            'width' => '100%'
+        ));
+        /** Preparing the Columns **/
+        $columns = array();
+        foreach($this->tableColumns as $columnText){
+            $columns[] = $columnText['text'];
+        }
+
+        $this->melisGenericTable()->setColumns($columns);
+        echo $this->melisGenericTable()->renderTable();
+        ?>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                <?= $this->getToolDataTableConfig; ?>
+
+//                MelisNewsletterSubscribersTable = $MelisNewsletterSubscribersTable;
+            });
+        </script>
+    </div>
+</div>
